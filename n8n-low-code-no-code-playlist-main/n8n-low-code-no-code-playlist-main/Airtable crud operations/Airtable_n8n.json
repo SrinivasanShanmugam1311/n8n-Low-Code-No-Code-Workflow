@@ -1,0 +1,666 @@
+{
+  "name": "Airtable-n8n",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "base",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -140,
+        -240
+      ],
+      "id": "be502e41-f731-4ff2-bf4d-1a81a4c112b1",
+      "name": "Airtable",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "EUgObgEseJ1ijh57",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "base",
+        "operation": "getSchema",
+        "base": {
+          "__rl": true,
+          "value": "app7ARhJ723puaB6u",
+          "mode": "list",
+          "cachedResultName": "Web Services Categorization",
+          "cachedResultUrl": "https://airtable.com/app7ARhJ723puaB6u"
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -140,
+        -100
+      ],
+      "id": "c866fe16-691f-4db5-b4de-8f29e7cdbb79",
+      "name": "Airtable1",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "EUgObgEseJ1ijh57",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "app7ARhJ723puaB6u",
+          "mode": "list",
+          "cachedResultName": "Web Services Categorization",
+          "cachedResultUrl": "https://airtable.com/app7ARhJ723puaB6u"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl1iBhJ6HNYND4st",
+          "mode": "list",
+          "cachedResultName": "Web Services Categories",
+          "cachedResultUrl": "https://airtable.com/app7ARhJ723puaB6u/tbl1iBhJ6HNYND4st"
+        },
+        "filterByFormula": "=AND({Service Classification} = '{{ $json.Service }}' )\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -20,
+        60
+      ],
+      "id": "e9227383-c2fc-468f-a157-bfb04b5e5773",
+      "name": "Airtable2",
+      "alwaysOutputData": true,
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "EUgObgEseJ1ijh57",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ae21c3c7-44be-45e1-9792-71e2c62805b3",
+              "leftValue": "={{ $json.operation }}",
+              "rightValue": "Base",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -420,
+        -220
+      ],
+      "id": "ea382703-8ca5-4bf5-bea2-222587dabbda",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "formTitle": "operation",
+        "formDescription": "operation",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "operation",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Base"
+                  },
+                  {
+                    "option": "Schema"
+                  },
+                  {
+                    "option": "Search"
+                  },
+                  {
+                    "option": "Create"
+                  },
+                  {
+                    "option": "Delete"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -680,
+        -100
+      ],
+      "id": "2892dad3-72aa-4777-b07d-a1c461a3d4d1",
+      "name": "On form submission",
+      "webhookId": "96a39df0-eee9-432c-97f6-18d09ad1288d"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5f4e087f-87b2-4c03-af98-db70cb3b844c",
+              "leftValue": "={{ $json.operation }}",
+              "rightValue": "Schema",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -420,
+        -80
+      ],
+      "id": "745da233-bffa-445c-a656-080bab02c7d8",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1fc50e49-a869-4995-8f1e-6ecf072c460d",
+              "leftValue": "={{ $json.operation }}",
+              "rightValue": "Search",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -420,
+        80
+      ],
+      "id": "4a51906b-5af9-4841-a669-958c9af1e670",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Service",
+              "placeholder": "Service"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 1,
+      "position": [
+        -180,
+        60
+      ],
+      "id": "0ee1da93-e9cd-4d6f-9aa5-b2527cb18f1e",
+      "name": "Form",
+      "webhookId": "238ed602-c1cb-4090-9800-d30d2743031b"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "909425d5-5d1d-45f0-a897-c2c0407e947d",
+              "leftValue": "={{ $json.operation }}",
+              "rightValue": "Delete",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -420,
+        260
+      ],
+      "id": "05b74254-723b-45b7-816c-0388e4a902dc",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "RecordId"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        240
+      ],
+      "id": "e3d8b18d-5384-4165-a1b6-ea5b5fe974ae",
+      "name": "Form1",
+      "webhookId": "a2a060eb-3454-4eeb-b875-da2e0c831c7d"
+    },
+    {
+      "parameters": {
+        "operation": "deleteRecord",
+        "base": {
+          "__rl": true,
+          "value": "app7ARhJ723puaB6u",
+          "mode": "list",
+          "cachedResultName": "Web Services Categorization",
+          "cachedResultUrl": "https://airtable.com/app7ARhJ723puaB6u"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl1iBhJ6HNYND4st",
+          "mode": "list",
+          "cachedResultName": "Web Services Categories",
+          "cachedResultUrl": "https://airtable.com/app7ARhJ723puaB6u/tbl1iBhJ6HNYND4st"
+        },
+        "id": "={{ $json.RecordId }}"
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        240
+      ],
+      "id": "729da4e3-b1dc-4373-ac65-855911699083",
+      "name": "Airtable3",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "EUgObgEseJ1ijh57",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a935aa16-8a4f-4fe6-93ee-52b9af7680b2",
+              "leftValue": "={{ $json.operation }}",
+              "rightValue": "Create",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -420,
+        420
+      ],
+      "id": "347cafe6-dad3-4cd3-8600-a6ceecfcda0f",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Sevice Description"
+            },
+            {
+              "fieldLabel": "Sevice Classification"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        420
+      ],
+      "id": "d01c2fd3-9301-449f-8134-07a6c8c478fe",
+      "name": "Form2",
+      "webhookId": "42a2fba8-5b29-4524-bb1d-e8bea4b75e66",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "app7ARhJ723puaB6u",
+          "mode": "list",
+          "cachedResultName": "Web Services Categorization",
+          "cachedResultUrl": "https://airtable.com/app7ARhJ723puaB6u"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl1iBhJ6HNYND4st",
+          "mode": "list",
+          "cachedResultName": "Web Services Categories",
+          "cachedResultUrl": "https://airtable.com/app7ARhJ723puaB6u/tbl1iBhJ6HNYND4st"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Service Description": "={{ $json[\"Sevice Description\"] }}",
+            "Service Classification": "={{ $json[\"Sevice Classification\"] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Service Description",
+              "displayName": "Service Description",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Service Classification",
+              "displayName": "Service Classification",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Mapping",
+                  "value": "Mapping"
+                },
+                {
+                  "name": "Social",
+                  "value": "Social"
+                },
+                {
+                  "name": "eCommerce",
+                  "value": "eCommerce"
+                },
+                {
+                  "name": "Telephony",
+                  "value": "Telephony"
+                },
+                {
+                  "name": "Messaging",
+                  "value": "Messaging"
+                },
+                {
+                  "name": "Tools",
+                  "value": "Tools"
+                },
+                {
+                  "name": "Payments",
+                  "value": "Payments"
+                },
+                {
+                  "name": "Enterprise",
+                  "value": "Enterprise"
+                },
+                {
+                  "name": "Government",
+                  "value": "Government"
+                },
+                {
+                  "name": "Financial",
+                  "value": "Financial"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        20,
+        420
+      ],
+      "id": "c7ff610d-e8fb-4d3f-b36b-41f9c5161740",
+      "name": "Airtable4",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "EUgObgEseJ1ijh57",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "main": [
+        []
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Airtable1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable1": {
+      "main": [
+        []
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Form": {
+      "main": [
+        [
+          {
+            "node": "Airtable2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Form1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Form1": {
+      "main": [
+        [
+          {
+            "node": "Airtable3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable2": {
+      "main": [
+        []
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Form2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Form2": {
+      "main": [
+        [
+          {
+            "node": "Airtable4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable4": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c3df4e18-a531-4bd3-9130-13101ed05eaf",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5510a4dce91400146b0925f523d14089d1608c24bf3fe459b847e391a0a61852"
+  },
+  "id": "fQZxHZojyxj9fiL4",
+  "tags": []
+}
